@@ -6,7 +6,7 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    bookCount: Int
+    movieCount: Int
     movies: [Movie]
   }
 
@@ -20,6 +20,7 @@ const typeDefs = gql`
     voteAverage: String
     homePage:String
     runtime: String
+    comments: [Comment]
   }
   
   input movieInput {
@@ -48,7 +49,7 @@ const typeDefs = gql`
   type Query {
     user(userId: ID!): User
     me: User
-    movie: (movieId: String): Movie
+    movie(movieId: String): Movie
   }
 
   type Mutation {

@@ -14,6 +14,7 @@ const resolvers = {
         }
         throw new AuthenticationError('You need to be logged in!');
       },
+      
       movie: async (parent, { movieId }) => {
         return Movie.findOne({ movieId: movieId });
       }
