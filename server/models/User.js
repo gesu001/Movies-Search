@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const movieSchema = require('./Movie');
 
 const userSchema = new Schema(
   {
@@ -22,12 +23,7 @@ const userSchema = new Schema(
       required: true,
     },
     
-    movies: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Movie',
-      },
-    ],
+    movies: [movieSchema],
   },
   // set this to use virtual below
   {

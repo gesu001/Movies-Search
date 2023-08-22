@@ -4,6 +4,10 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
+      users: async () => {
+        return User.find();
+      },
+
       user: async (parent, { userId }) => {
         return User.findOne({ _id: userId });
       },
@@ -15,9 +19,6 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
       },
       
-      movie: async (parent, { movieId }) => {
-        return Movie.findOne({ movieId: movieId });
-      }
     },
   
     Mutation: {
@@ -47,13 +48,13 @@ const resolvers = {
 
       saveMovie: async (parent, { movieToSave }, context) => {
         if (context.user) {
-          const updatedmovies = await User.findOneAndUpdate(
+          const updatedMovies = await User.findOneAndUpdate(
             { _id: context.user._id },
             { $addToSet: { movies: movieToSave } },
             { new: true }
           ).populate('movies');
   
-          return updatedmovies;
+          return updatedMovies;
         }
         throw new AuthenticationError('You need to be logged in!');
       },
@@ -66,42 +67,6 @@ const resolvers = {
               $pull: {
                 movies: {
                   movieId: movieId,
-                },
-              },
-            },
-            { new: true }
-          );
-        }
-        throw new AuthenticationError('You need to be logged in!');
-      },
-
-      addComment: async (parent, { movieId, commentText }, context) => {
-        if (context.user) {
-          return Movie.findOneAndUpdate(
-            { movieId: movieId },
-            {
-              $addToSet: {
-                comments: { commentText, commentAuthor: context.user.username },
-              },
-            },
-            {
-              new: true,
-              runValidators: true,
-            }
-          );
-        }
-        throw new AuthenticationError('You need to be logged in!');
-      },
-
-      removeComment: async (parent, { movieId, commentId }, context) => {
-        if (context.user) {
-          return Movie.findOneAndUpdate(
-            { movieId: movieId },
-            {
-              $pull: {
-                comments: {
-                  _id: commentId,
-                  commentAuthor: context.user.username,
                 },
               },
             },

@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const movieSchema = new Schema({
@@ -37,7 +37,7 @@ const movieSchema = new Schema({
   runtime: {
     type: String,
   },
-  
+
   comments: [
     {
       commentText: {
@@ -59,6 +59,4 @@ const movieSchema = new Schema({
   ]
 });
 
-const Movie = model('Movie', movieSchema);
-
-module.exports = Movie;
+module.exports = movieSchema;
