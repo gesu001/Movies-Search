@@ -1,26 +1,27 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type User {
-    _id: ID
-    username: String
-    email: String
-    password: String
-    movieCount: Int
-    movies: [Movie]
-  }
+type User {
+  _id: ID
+  username: String
+  email: String
+  password: String
+  movieCount: Int
+  movies: [Movie]!
+}
 
-  type Movie {
-    _id: ID
-    movieId: String
-    title: String
-    overview: String
-    image: String
-    releaseDate: String
-    voteAverage: String
-    homePage:String
-    runtime: String
-  }
+type Movie {
+  _id: ID
+  movieId: String
+  title: String
+  overview: String
+  image: String
+  releaseDate: String
+  voteAverage: String
+  homePage:String
+  runtime: String
+  comments: [Comment]
+}
   
   type Comment {
     _id: ID
@@ -49,15 +50,24 @@ const typeDefs = gql`
     users: [User]
     user(userId: ID!): User
     me: User
+    movies: [Movie]
+    movie(movie_id: ID!): Movie
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveMovie(movieToSave: movieInput): User
-    removeMovie(movieId: String!): User
-    addComment(thoughtId: ID!, commentText: String!): Thought
-    removeComment(thoughtId: ID!, commentId: ID!): Thought
+    saveMovie(movieId: String,
+      title: String,
+      overview: String,
+      image: String,
+      releaseDate: String,
+      voteAverage: String,
+      homePage: String,
+      runtime: String): Movie
+    removeMovie(movie_id: ID!): Movie
+    addComment(movie_id: ID!, commentText: String!): Movie
+    removeComment(movie_id: ID!, commentId: ID!): Movie
   }
 `;
 

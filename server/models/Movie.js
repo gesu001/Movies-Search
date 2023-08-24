@@ -1,21 +1,18 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const movieSchema = new Schema({
 
   movieId: {
     type: String,
-    required: true,
   },
 
   title: {
     type: String,
-    required: true,
   },
 
   overview: {
     type: String,
-    required: true,
   },
 
   image: {
@@ -58,5 +55,6 @@ const movieSchema = new Schema({
     },
   ]
 });
+const Movie = model('Movie', movieSchema);
 
-module.exports = movieSchema;
+module.exports = Movie;
