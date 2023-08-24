@@ -37,7 +37,7 @@ function App() {
     <Navbar />
         <Switch>
           <Route exact path='/' component={SearchMovies} />
-          <Route exact path='/SingleMovie' component={SingleMovie} />
+          <Route exact path='/movie/:movieId' component={SingleMovie} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Switch>
       </>

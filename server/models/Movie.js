@@ -24,7 +24,7 @@ const movieSchema = new Schema({
   },
 
   voteAverage: {
-    type: String,
+    type: Number,
   },
 
   homePage: {
@@ -32,7 +32,7 @@ const movieSchema = new Schema({
   },
 
   runtime: {
-    type: String,
+    type: Number,
   },
 
   comments: [

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import {
   Container,
   Col,
@@ -9,13 +9,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 // import Auth from '../utils/auth';
-import { search } from '../utils/API';
-// import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
-
-// import { useMutation } from '@apollo/client';
-// import { ADD_BOOK } from '../utils/mutations';
-
-// import { QUERY_ME } from '../utils/queries';
+import { search} from '../utils/API';
 
 const SearchMovies = () => {
   // create state for holding returned google api data
@@ -23,38 +17,35 @@ const SearchMovies = () => {
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
 
-  // create state to hold saved bookId values
-  // const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  // const getPopularMovie = async () => {
+  //   try {
+  //     const response = await popularMovie();
 
-  // const [addBook, { error }] = useMutation(ADD_BOOK, {
-  //   // The below block ensures that as soon as the user saves a book, it appears right away in the saved books page
-  //   update(cache, { data: { addBook } }) {
-  //     try {
-  //       const { me } = cache.readQuery({
-  //         query: QUERY_ME,
-  //       });
+  //     if (!response.ok) {
+  //       throw new Error('something went wrong!');
+  //     }
 
-  //       cache.writeQuery({
-  //         query: QUERY_ME,
-  //         data: {
-  //           me: {
-  //             ...me,
-  //             savedBooks: [
-  //               ...me.savedBooks,
-  //               addBook.savedBooks[addBook.savedBooks.length - 1],
-  //             ],
-  //           },
-  //         },
-  //       });
-  //     } catch (e) {}
-  //   },
-  // });
+  //     // const { items } = await response.json();
+  //     const { results } = await response.json();
 
-  // useEffect(() => {
-  //   return () => saveBookIds(savedBookIds);
-  // });
+  //     const popularMovie = results.map((result) => ({
+  //       movieId: result.id,
+  //       title: result.title,
+  //       overview: result.overview,
+  //       image: `https://image.tmdb.org/t/p/original/${result.poster_path}`,
+  //       releaseDate: result.release_date,
+  //       voteAverage: result.vote_average
+  //     }))
 
-  // create method to search for books and set state on form submit
+  //     setSearchedMovies(popularMovie);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+
+  // useEffect(()=> {
+  //   getPopularMovie()
+  // }, [])
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -76,7 +67,7 @@ const SearchMovies = () => {
         movieId: movie.id,
         title: movie.title,
         overview: movie.overview,
-        image: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
+        image: `https://image.tmdb.org/t/p/original/${movie.poster_path}`,
         releaseDate: movie.release_date,
         voteAverage: movie.vote_average
       }))
@@ -88,35 +79,9 @@ const SearchMovies = () => {
     }
   };
 
-  // // create function to handle saving a book to our database
-  // const handleSaveBook = async (bookId) => {
-  //   // find the book in `searchedMovies` state by the matching id
-  //   const bookToSave = searchedMovies.find((book) => book.bookId === bookId);
-
-  //   // get tokens
-  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
-  //   if (!token) {
-  //     return false;
-  //   }
-
-  //   try {
-  //     await addBook({
-  //       variables: { bookToSave },
-  //     });
-
-  //     // if book successfully saves to user's account, save book id to state
-  //     setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-  //     saveBookIds(savedBookIds);
-  //   } catch (err) {
-  //     // console.log(error.networkError.result.errors);
-
-  //     console.error(err);
-  //   }
-  // };
-
   return (
     <>
-      <div className='text-light bg-dark pt-5'>
+      <div className='text-light bg-primary pt-5'>
         <Container>
           <h1>Search for Movies!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -160,18 +125,8 @@ const SearchMovies = () => {
                     <p className='small'>Release Date: {movie.releaseDate}</p>
                     <p className='small'>Rating: {movie.voteAverage}/10</p>
                     <Card.Text>{movie.overview}</Card.Text>
-                    <Card.Link as={Link} to='/SingleMovie' className='btn-block btn-info'
-                        >View Details</Card.Link>
-                    {/* {Auth.loggedIn() && (
-                      <Button
-                        disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
-                        className='btn-block btn-info'
-                        onClick={() => handleSaveBook(book.bookId)}>
-                        {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                          ? 'This book has already been saved!'
-                          : 'Save this Book!'}
-                      </Button>
-                    )} */}
+                    <Link className='btn-block btn-info' to={`/movie/${movie.movieId}`}
+                        >View Details</Link>
                   </Card.Body>
                 </Card>
               </Col>

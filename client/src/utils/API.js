@@ -61,7 +61,30 @@ export const search = (query) => {
   };
   
   return fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`, options)
-    // .then(response => response.json())
-    // .then(response => console.log(response))
-    // .catch(err => console.error(err));
+};
+
+export const searchSingle = (query) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDYwMTlmZWM4ZGZiMzNhYWE5MmZlZDE5MGZiMTMwOSIsInN1YiI6IjY0ZDM5ODkyZDEwMGI2MDEzOTViMjg2MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.a6sPUEszo3RdfwM41sLr-F1rSIH1_ArMfXbaOlzxEqo'
+    }
+  };
+  
+  return fetch(`https://api.themoviedb.org/3/movie/${query}?language=en-US`, options)
+
+};
+
+export const popularMovie = () => {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDYwMTlmZWM4ZGZiMzNhYWE5MmZlZDE5MGZiMTMwOSIsInN1YiI6IjY0ZDM5ODkyZDEwMGI2MDEzOTViMjg2MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.a6sPUEszo3RdfwM41sLr-F1rSIH1_ArMfXbaOlzxEqo'
+    }
+  };
+  
+  return fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+
 };

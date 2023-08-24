@@ -64,7 +64,7 @@ mutation Mutation($username: String!, $email: String!, $password: String!) {
 `;
 
 export const SAVE_MOVIE = gql`
-mutation SaveMovie($movieId: String, $title: String, $overview: String, $image: String, $releaseDate: String, $voteAverage: String, $homePage: String, $runtime: String) {
+mutation SaveMovie($movieId: String, $title: String, $overview: String, $image: String, $releaseDate: String, $voteAverage: Float, $homePage: String, $runtime: Int) {
   saveMovie(movieId: $movieId, title: $title, overview: $overview, image: $image, releaseDate: $releaseDate, voteAverage: $voteAverage, homePage: $homePage, runtime: $runtime) {
     _id
     movieId

@@ -17,9 +17,9 @@ type Movie {
   overview: String
   image: String
   releaseDate: String
-  voteAverage: String
+  voteAverage: Float
   homePage:String
-  runtime: String
+  runtime: Int
   comments: [Comment]
 }
   
@@ -36,9 +36,9 @@ type Movie {
     overview: String
     image: String
     releaseDate: String
-    voteAverage: String
+    voteAverage: Float
     homePage: String
-    runtime: String
+    runtime: Int
   }
 
   type Auth {
@@ -62,9 +62,9 @@ type Movie {
       overview: String,
       image: String,
       releaseDate: String,
-      voteAverage: String,
+      voteAverage: Float,
       homePage: String,
-      runtime: String): Movie
+      runtime: Int): Movie
     removeMovie(movie_id: ID!): Movie
     addComment(movie_id: ID!, commentText: String!): Movie
     removeComment(movie_id: ID!, commentId: ID!): Movie
