@@ -51,7 +51,7 @@ type Movie {
     user(userId: ID!): User
     me: User
     movies: [Movie]
-    movie(movie_id: ID!): Movie
+    singleMovie(movie_id: ID!): Movie
   }
 
   type Mutation {

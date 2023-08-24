@@ -14,7 +14,7 @@ const resolvers = {
 
       movies: async () => {return Movie.find()},
 
-      movie: async (parent, { movie_id }) => {
+      singleMovie: async (parent, { movie_id }) => {
         return Movie.findOne({ _id: movie_id });
       },
 
