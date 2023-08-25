@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchMovies from './pages/SearchMovies';
 import SingleMovie from './pages/SingleMovie';
 import Navbar from './components/Navbar';
+import SavedMovies from './pages/SavedMovies';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -38,6 +39,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={SearchMovies} />
           <Route exact path='/movie/:movieId' component={SingleMovie} />
+          <Route exact path='/savedmovies' component={SavedMovies} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Switch>
       </>

@@ -103,7 +103,8 @@ const resolvers = {
   
           await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { movies: movie._id } }
+            { $pull: { movies: movie._id } },
+            { new: true },
           );
   
           return movie;
