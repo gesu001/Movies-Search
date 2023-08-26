@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
   Container,
+  Row,
   Col,
   Button,
   Card,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 import { searchSingle } from '../utils/API';
@@ -15,13 +17,15 @@ import { SAVE_MOVIE } from '../utils/mutations';
 
 import { QUERY_ME } from '../utils/queries';
 
+import Home from './Home';
+import CommentForm from '../components/CommentForm';
+
+
 const SingleMovie = () => {
   const { movieId } = useParams();
   const [movieData, setMovieData] = useState({});
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
-
-  const [saveMovie, { error, data }] = useMutation(SAVE_MOVIE, {
-
+  const [saveMovie, { error }] = useMutation(SAVE_MOVIE, {
     update(cache, { data: { saveMovie } }) {
       try {
         const { me } = cache.readQuery({
@@ -105,7 +109,8 @@ const SingleMovie = () => {
   return (
     <>
     <Container>
-    <Col md="6">
+    <Row>
+    <Col md="8">
     <Card key={movieId} border='dark'>
         {movieData.image ? (
           <Card.Img src={movieData.image} alt={`The cover for ${movieData.title}`} variant='top' />
@@ -126,18 +131,19 @@ const SingleMovie = () => {
                 : 'Save this Movie!'}
             </Button>
           )}
-          <button> Add Comment</button>
         </Card.Body>
       </Card>
       </Col>
-      <Col md="6">
+      <Col md="4">
+      <p>{movieId}</p>
       <div className="my-5">
-        <CommentList comments={thought.comments} />
+        <Home movieId={ movieId }/>
       </div>
       <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-        <CommentForm thoughtId={thought._id} />
+        <CommentForm movieId={ movieId } />
       </div>
         </Col>
+        </Row>
     </Container>
 
 

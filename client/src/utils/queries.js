@@ -19,6 +19,7 @@ query User($userId: ID!) {
       runtime
       comments {
         _id
+        movieId
         commentText
         commentAuthor
         createdAt
@@ -47,6 +48,7 @@ query Me {
       runtime
       comments {
         _id
+        movieId
         commentText
         commentAuthor
         createdAt
@@ -70,6 +72,7 @@ query Movies {
     runtime
     comments {
       _id
+      movieId
       commentText
       commentAuthor
       createdAt
@@ -92,10 +95,35 @@ query SingleMovie($movieId: ID!) {
     runtime
     comments {
       _id
+      movieId
       commentText
       commentAuthor
       createdAt
     }
+  }
+}
+`;
+
+export const QUERY_COMMENT = gql`
+query Comment($movieId: String) {
+  comment(movieId: $movieId) {
+    _id
+    movieId
+    commentText
+    commentAuthor
+    createdAt
+  }
+}
+`;
+
+export const QUERY_COMMENTS = gql`
+query Comments($movieId: String) {
+  comments(movieId: $movieId) {
+    _id
+    movieId
+    commentText
+    commentAuthor
+    createdAt
   }
 }
 `;

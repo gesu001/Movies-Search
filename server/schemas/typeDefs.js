@@ -25,20 +25,10 @@ type Movie {
   
   type Comment {
     _id: ID
+    movieId: String
     commentText: String
     commentAuthor: String
     createdAt: String
-  }
-
-  input movieInput {
-    movieId: String
-    title: String
-    overview: String
-    image: String
-    releaseDate: String
-    voteAverage: Float
-    homePage: String
-    runtime: Int
   }
 
   type Auth {
@@ -52,6 +42,8 @@ type Movie {
     me: User
     movies: [Movie]
     singleMovie(movie_id: ID!): Movie
+    comments(movieId: String): [Comment]
+    comment(movieId: String): [Comment]
   }
 
   type Mutation {
@@ -66,8 +58,8 @@ type Movie {
       homePage: String,
       runtime: Int): Movie
     removeMovie(movie_id: ID!): Movie
-    addComment(movie_id: ID!, commentText: String!): Movie
-    removeComment(movie_id: ID!, commentId: ID!): Movie
+    addComment(movieId: String, commentText: String!, commentAuthor: String!): Comment
+    removeComment(commentId: ID!): Comment
   }
 `;
 

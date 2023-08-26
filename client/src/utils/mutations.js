@@ -21,6 +21,7 @@ mutation Mutation($email: String!, $password: String!) {
         runtime
         comments {
           _id
+          movieId
           commentText
           commentAuthor
           createdAt
@@ -53,6 +54,7 @@ mutation Mutation($username: String!, $email: String!, $password: String!) {
         runtime
         comments {
           _id
+          movieId
           commentText
           commentAuthor
           createdAt
@@ -77,6 +79,7 @@ mutation SaveMovie($movieId: String, $title: String, $overview: String, $image: 
     runtime
     comments {
       _id
+      movieId
       commentText
       commentAuthor
       createdAt
@@ -99,6 +102,7 @@ mutation RemoveMovie($movieId: ID!) {
     runtime
     comments {
       _id
+      movieId
       commentText
       commentAuthor
       createdAt
@@ -108,45 +112,25 @@ mutation RemoveMovie($movieId: ID!) {
 `;
 
 export const ADD_COMMENT = gql`
-mutation AddComment($movieId: ID!, $commentText: String!) {
-  addComment(movie_id: $movieId, commentText: $commentText) {
+mutation AddComment($commentText: String!, $commentAuthor: String!, $movieId: String) {
+  addComment(commentText: $commentText, commentAuthor: $commentAuthor, movieId: $movieId) {
     _id
     movieId
-    title
-    overview
-    image
-    releaseDate
-    voteAverage
-    homePage
-    runtime
-    comments {
-      _id
-      commentText
-      commentAuthor
-      createdAt
-    }
+    commentText
+    commentAuthor
+    createdAt
   }
 }
 `;
 
 export const REMOVE_COMMENT = gql`
-mutation RemoveComment($movieId: ID!, $commentId: ID!) {
-  removeComment(movie_id: $movieId, commentId: $commentId) {
+mutation RemoveComment($commentId: ID!) {
+  removeComment(commentId: $commentId) {
     _id
     movieId
-    title
-    overview
-    image
-    releaseDate
-    voteAverage
-    homePage
-    runtime
-    comments {
-      _id
-      commentText
-      commentAuthor
-      createdAt
-    }
+    commentText
+    commentAuthor
+    createdAt
   }
 }
 `;

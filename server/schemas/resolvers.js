@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Movie } = require('../models');
+const { User, Movie, Comment } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -12,10 +12,12 @@ const resolvers = {
         return User.findOne({ _id: userId }).populate("movies");
       },
 
-      movies: async () => {return Movie.find()},
+      movies: async () => {
+        return Movie.find().populate("comments");
+      },
 
       singleMovie: async (parent, { movie_id }) => {
-        return Movie.findOne({ _id: movie_id });
+        return Movie.findOne({ _id: movie_id }).populate("comments");
       },
 
       me: async (parent, args, context) => {
@@ -23,6 +25,14 @@ const resolvers = {
           return User.findOne({ _id: context.user._id }).populate("movies");
         }
         throw new AuthenticationError('You need to be logged in!');
+      },
+
+      comments: async (parent, { movieId }) => {
+        return Comment.find({movieId}).sort({ createdAt: -1 });
+      },
+
+      comment: async (parent, { movieId }) => {
+        return Comment.find({movieId}).sort({ createdAt: -1 });
       },
       
     },
@@ -35,7 +45,7 @@ const resolvers = {
       },
 
       login: async (parent, { email, password }) => {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).populate("movies");
   
         if (!user) {
           throw new AuthenticationError('No user found with this email address');
@@ -74,7 +84,8 @@ const resolvers = {
   
           await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $addToSet: { movies: movie._id } }
+            { $addToSet: { movies: movie._id } },
+            { new: true }
           );
   
           return movie;
@@ -83,19 +94,7 @@ const resolvers = {
       },
 
       removeMovie: async (parent, { movie_id }, context) => {
-        // if (context.user) {
-        //   return User.findOneAndUpdate(
-        //     { _id: context.user._id },
-        //     {
-        //       $pull: {
-        //         movies: {
-        //           movieId: movieId,
-        //         },
-        //       },
-        //     },
-        //     { new: true }
-        //   );
-        // }
+ 
         if (context.user) {
           const movie = await Movie.findOneAndDelete({
             _id: movie_id,
@@ -112,42 +111,41 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
       },
 
-      addComment: async (parent, { movie_id, commentText }, context) => {
+      addComment: async (parent, {movieId, commentText }, context) => {
         if (context.user) {
-          return Movie.findOneAndUpdate(
-            { _id: movie_id },
-            {
-              $addToSet: {
-                comments: { commentText, commentAuthor: context.user.username },
-              },
-            },
-            {
-              new: true,
-              runValidators: true,
-            }
-          );
+          const comment = await Comment.create({
+            movieId,
+            commentText,
+            commentAuthor: context.user.username
+              });
+          
+              // await Movie.findOneAndUpdate(
+              //   { _id: movie_id },
+              //   { $addToSet: { comments: comment._id  } },
+              //   { new: true }
+              // );
+      
+              return comment;
         }
         throw new AuthenticationError('You need to be logged in!');
       },
 
-       removeComment: async (parent, { movie_id, commentId }, context) => {
+      removeComment: async (parent, {commentId }, context) => {
       if (context.user) {
-        return Movie.findOneAndUpdate(
-          { _id: movie_id },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
+        const comment = await Comment.findOneAndDelete(
+          { _id: commentId });
+
+        // await Movie.findOneAndUpdate(
+        //   { _id: movie_id },
+        //   { $pull: { comments: {_id: commentId}}},
+        //   {new: true}
+        // );
+
+        return comment;
       throw new AuthenticationError('You need to be logged in!');
+    }
     },
-    },
+  }
   };
   
   module.exports = resolvers;

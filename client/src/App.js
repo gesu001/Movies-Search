@@ -6,6 +6,9 @@ import SearchMovies from './pages/SearchMovies';
 import SingleMovie from './pages/SingleMovie';
 import Navbar from './components/Navbar';
 import SavedMovies from './pages/SavedMovies';
+import CommentList from './components/CommentList';
+// import Home from './pages/Home';
+
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -37,9 +40,11 @@ function App() {
       <>
     <Navbar />
         <Switch>
+          {/* <Route exact path='/home' component={Home}/> */}
           <Route exact path='/' component={SearchMovies} />
           <Route exact path='/movie/:movieId' component={SingleMovie} />
           <Route exact path='/savedmovies' component={SavedMovies} />
+          <Route exact path='/comments/:movieId' component={CommentList} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Switch>
       </>
