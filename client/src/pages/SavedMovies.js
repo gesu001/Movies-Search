@@ -18,28 +18,7 @@ const SavedMovies = () => {
   const userData = data?.me || {};
 
 
-  const [removeMovie, { error }] = useMutation(REMOVE_MOVIE, {
-    update(cache, { data: { removeMovie } }) {
-      try {
-        const { me } = cache.readQuery({
-          query: QUERY_ME,
-        });
-
-        cache.writeQuery({
-          query: QUERY_ME,
-          data: {
-            me: {
-              ...me,
-              movies: [
-                ...me.movies,
-                { ...removeMovie }
-              ],
-            },
-          },
-        });
-      } catch (e) {}
-    },
-  });
+  const [removeMovie, { error }] = useMutation(REMOVE_MOVIE, {refetchQueries: [ QUERY_ME ]});
 
   const handleDeleteMovie = async (movieId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -50,11 +29,11 @@ const SavedMovies = () => {
 
     try {
      const movie = await removeMovie({
-        variables: {movieId},
+        variables: { movieId },
       });
 
       removeMovieId(movie.data.removeMovie.movieId);
-      document.getElementById(movie.data.removeMovie.movieId).remove();
+
      
     } catch (err) {
       console.error(err);
@@ -84,14 +63,15 @@ const SavedMovies = () => {
           {userData?.movies?.map((movie) => {
             return (
               <Col md="4">
-                <Card key={movie.movieId} border='dark'>
+                <Card key={movie._id} border='dark'>
                   {movie.image ? <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' /> : null}
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
                     <Card.Text>{movie.overview}</Card.Text>
                     <p>{movie._id}</p>
-                    <Link className='btn-block btn-info' to={`/movie/${movie.movieId}`}
-                        >View Details</Link>
+                    <p>{movie.movieId}</p>
+                    {/* <Link className='btn-block btn-info' to={`/movie/${movie.movieId}`}
+                        >View Details</Link> */}
                     <Button className='btn-block btn-danger' onClick={() => handleDeleteMovie(movie._id)}>
                       Delete this Movie!
                     </Button>

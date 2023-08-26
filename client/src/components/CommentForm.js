@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import { ADD_COMMENT } from '../utils/mutations';
+import { QUERY_COMMENTS } from '../utils/queries';
+
 
 import Auth from '../utils/auth';
 
@@ -10,7 +12,31 @@ const CommentForm = ({ movieId }) => {
   const [commentText, setCommentText] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addComment, { error }] = useMutation(ADD_COMMENT);
+  const [addComment, { error }] = useMutation(ADD_COMMENT, {
+    update(cache, { data: { addComment } }) {
+      try {
+        const { comments } = cache.readQuery({ 
+          query: QUERY_COMMENTS,
+          variables: { movieId: movieId }
+        });
+
+        cache.writeQuery({
+          query: QUERY_COMMENTS,
+          data: { comments: [addComment, ...comments] },
+          variables: {movieId: movieId}
+        });
+      } catch (e) {
+        console.error(e);
+      }
+
+      // update me object's cache
+      // const { me } = cache.readQuery({ query: QUERY_ME });
+      // cache.writeQuery({
+      //   query: QUERY_ME,
+      //   data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
+      // });
+    },
+  });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
