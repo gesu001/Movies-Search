@@ -17,7 +17,7 @@ import { SAVE_MOVIE } from '../utils/mutations';
 
 import { QUERY_ME } from '../utils/queries';
 
-import Home from './Home';
+import Comments from '../components/Comments';
 import CommentForm from '../components/CommentForm';
 
 
@@ -109,19 +109,28 @@ const SingleMovie = () => {
   return (
     <>
     <Container>
-    <Row>
-    <Col md="8">
-    <Card key={movieId} border='dark'>
+    {/* <Row class='g-0'> */}
+    {/* <Col md="8"> */}
+    <Card key={movieId} border='dark' style={{width:"100%"}}>
+      <Row class='g-0'>
+
+        <Col md='4'>
         {movieData.image ? (
           <Card.Img src={movieData.image} alt={`The cover for ${movieData.title}`} variant='top' />
         ) : null}
+        </Col>
+
+        <Col md='8'>
         <Card.Body>
           <Card.Title>{movieData.title}</Card.Title>
           <p className='small'>Release Date: {movieData.releaseDate}</p>
           <p className='small'>Rating: {movieData.voteAverage}/10</p>
           <Card.Text>{movieData.overview}</Card.Text>
-          <a href={movieData.homepage} target="_blank" rel="noopener noreferrer">Visit Movie Homepage</a>
-          {Auth.loggedIn() && (
+          <a href={movieData.homepage} target="_blank" rel="noopener noreferrer">Visit Movie Homepage</a> 
+        </Card.Body>
+        </Col>
+        <Col>
+        <Card.Footer className="text-muted, text-center">{Auth.loggedIn() && (
             <Button
               disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movieId)}
               className='btn-block btn-info'
@@ -130,24 +139,23 @@ const SingleMovie = () => {
                 ? 'This movie has already been saved!'
                 : 'Save this Movie!'}
             </Button>
-          )}
-        </Card.Body>
+          )}</Card.Footer>
+          </Col>
+
+        </Row>
       </Card>
-      </Col>
+      {/* </Col> */}
       <Col md="4">
       <p>{movieId}</p>
       <div className="my-5">
-        <Home movieId={ movieId }/>
+        <Comments movieId={ movieId }/>
       </div>
       <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
         <CommentForm movieId={ movieId } />
       </div>
         </Col>
-        </Row>
+        {/* </Row> */}
     </Container>
-
-
-
     </>
   );
 };

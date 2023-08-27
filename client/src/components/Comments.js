@@ -1,11 +1,11 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 
-import CommentList from '../components/CommentList';
+import CommentList from './CommentList';
 
 import { QUERY_COMMENTS } from '../utils/queries';
 
-const Home = ({movieId}) => {
+const Comments= ({movieId}) => {
   const { loading, data } = useQuery(QUERY_COMMENTS, {
     variables: {movieId: movieId}
   });
@@ -29,4 +29,4 @@ const Home = ({movieId}) => {
   );
 };
 
-export default Home;
+export default Comments;

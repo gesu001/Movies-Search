@@ -39,14 +39,14 @@ function App() {
       <Router>
       <>
     <Navbar />
-        <Switch>
-          {/* <Route exact path='/home' component={Home}/> */}
-          <Route exact path='/' component={SearchMovies} />
-          <Route exact path='/movie/:movieId' component={SingleMovie} />
-          <Route exact path='/savedmovies' component={SavedMovies} />
-          <Route exact path='/comments/:movieId' component={CommentList} />
-          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-        </Switch>
+    <Switch>
+      {/* <Route exact path='/home' component={Home}/> */}
+      <Route exact path='/' component={SearchMovies} />
+      <Route exact path='/movie/:movieId' component={SingleMovie} />
+      <Route exact path='/savedmovies' component={SavedMovies} />
+      <Route exact path='/comments/:movieId' component={CommentList} />
+      <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+    </Switch>
       </>
     </Router>
     </ApolloProvider>

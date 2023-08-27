@@ -5,7 +5,9 @@ import {
   Form,
   Button,
   Card,
-  Row
+  Row,
+  Nav,
+  CardGroup
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 // import Auth from '../utils/auth';
@@ -81,7 +83,7 @@ const SearchMovies = () => {
 
   return (
     <>
-      <div className='text-light bg-primary pt-5'>
+      <div className='text-dark bg-dark pt-5'>
         <Container>
           <h1>Search for Movies!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -93,12 +95,12 @@ const SearchMovies = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for a movie'
+                  placeholder='movie name'
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
-                  Submit Search
+                <Button type='submit' variant="secondary" size="lg" active>
+                  Search
                 </Button>
               </Col>
             </Row>
@@ -106,34 +108,34 @@ const SearchMovies = () => {
         </Container>
       </div>
 
-      <Container>
-        <h2 className='pt-5'>
+      <div className='p-5'>
+        <h2 className='pt-1'>
           {searchedMovies.length
             ? `Viewing ${searchedMovies.length} results:`
             : 'Search for a movie to begin'}
         </h2>
-        <Row>
+        <Row xs={1} md={3} lg={4} className="g-4">
           {searchedMovies.map((movie) => {
             return (
-              <Col md="3">
-                <Card key={movie.movieId} border='dark'>
+              <CardGroup>  
+                <Card className="bg-dark text-white" key={movie.movieId} border='dark'>
+                <Nav.Link as={Link} to={`/movie/${movie.movieId}`}>
                   {movie.image ? (
                     <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
                   ) : null}
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
                     <p className='small'>Release Date: {movie.releaseDate}</p>
-                    <p className='small'>Rating: {movie.voteAverage}/10</p>
-                    <Card.Text>{movie.overview}</Card.Text>
-                    <Link className='btn-block btn-info' to={`/movie/${movie.movieId}`}
-                        >View Details</Link>
+                    <p>Rating: {movie.voteAverage}/10</p>
+                    <Card.Text>{movie.overview}{' '}</Card.Text>
                   </Card.Body>
+                  </Nav.Link>
                 </Card>
-              </Col>
+              </CardGroup>
             );
           })}
         </Row>
-      </Container>
+      </div>
     </>
   );
 };

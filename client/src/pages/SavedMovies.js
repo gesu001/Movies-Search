@@ -4,7 +4,8 @@ import {
   Card,
   Button,
   Row,
-  Col
+  Col,
+  CardGroup
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
@@ -59,25 +60,25 @@ const SavedMovies = () => {
             ? `Viewing ${userData.movies.length} saved ${userData.movies.length === 1 ? 'movie' : 'movies'}:`
             : 'You have no saved movies!'}
         </h2>
-        <Row>
+        <Row xs={1} md={3} className="g-4">
           {userData?.movies?.map((movie) => {
             return (
-              <Col md="4">
+              <CardGroup>
                 <Card key={movie._id} border='dark'>
                   {movie.image ? <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' /> : null}
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
+                    <p><Link className='btn-block btn-info' to={`/movie/${movie.movieId}`}> 
+                    View Movie Details</Link></p>
                     <Card.Text>{movie.overview}</Card.Text>
-                    <p>{movie._id}</p>
-                    <p>{movie.movieId}</p>
-                    {/* <Link className='btn-block btn-info' to={`/movie/${movie.movieId}`}
-                        >View Details</Link> */}
-                    <Button className='btn-block btn-danger' onClick={() => handleDeleteMovie(movie._id)}>
-                      Delete this Movie!
-                    </Button>
+                    {/* <p>{movie._id}</p>
+                    <p>{movie.movieId}</p> */}
                   </Card.Body>
+                  <Card.Footer className="text-muted"><Button className='btn-block' onClick={() => handleDeleteMovie(movie._id)}>
+                      Delete this Movie!
+                    </Button></Card.Footer>
                 </Card>
-              </Col>
+              </CardGroup>
             );
           })}
         </Row>
