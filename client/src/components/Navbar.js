@@ -12,7 +12,7 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='light' variant='light' expand='lg'>
+      <Navbar bg='light' variant='white' expand='lg'>
         <Container fluid>
           <Navbar.Brand as={Link} to='/'>
             Movie Search

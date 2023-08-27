@@ -20,7 +20,7 @@ const Comments= ({movieId}) => {
           ) : (
             <CommentList
               comments={comments}
-              title="Reviews"
+              title="Movie Reviews"
             />
           )}
         </div>

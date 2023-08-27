@@ -109,9 +109,8 @@ const SingleMovie = () => {
   return (
     <>
     <Container>
-    {/* <Row class='g-0'> */}
-    {/* <Col md="8"> */}
-    <Card key={movieId} border='dark' style={{width:"100%"}}>
+    <div>
+    <Card key={movieId} className="m-3 p-4 bg-dark text-white" border='dark'>
       <Row class='g-0'>
 
         <Col md='4'>
@@ -144,17 +143,17 @@ const SingleMovie = () => {
 
         </Row>
       </Card>
-      {/* </Col> */}
-      <Col md="4">
-      <p>{movieId}</p>
-      <div className="my-5">
+      </div>
+      <div>
+      <Card className="m-3 p-4" border='dark'>
+      <div>
         <Comments movieId={ movieId }/>
       </div>
       <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
         <CommentForm movieId={ movieId } />
       </div>
-        </Col>
-        {/* </Row> */}
+      </Card>
+      </div>
     </Container>
     </>
   );

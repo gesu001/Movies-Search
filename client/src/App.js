@@ -37,7 +37,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-      <>
+      <div >
     <Navbar />
     <Switch>
       {/* <Route exact path='/home' component={Home}/> */}
@@ -47,7 +47,7 @@ function App() {
       <Route exact path='/comments/:movieId' component={CommentList} />
       <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
     </Switch>
-      </>
+      </div>
     </Router>
     </ApolloProvider>
   );
