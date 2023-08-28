@@ -51,13 +51,13 @@ const SavedMovies = () => {
     <>
       <div fluid className='text-light bg-dark p-5'>
         <Container>
-          <h1>Viewing saved movies!</h1>
+          <h1>Your Movie Lists</h1>
         </Container>
       </div>
       <Container>
         <h2 className='pt-5'>
           {(userData.movies || []).length
-            ? `Viewing ${userData.movies.length} saved ${userData.movies.length === 1 ? 'movie' : 'movies'}:`
+            ? `${userData.movies.length} saved ${userData.movies.length === 1 ? 'movie' : 'movies'}:`
             : 'You have no saved movies!'}
         </h2>
         <Row xs={1} md={3} className="g-4">
@@ -70,11 +70,11 @@ const SavedMovies = () => {
                     <Card.Title>{movie.title}</Card.Title>
                     <p><Link className='btn-block btn-info' to={`/movie/${movie.movieId}`}> 
                     View Movie Details</Link></p>
-                    <Card.Text>{movie.overview}</Card.Text>
+                    {/* <Card.Text>{movie.overview}</Card.Text> */}
                     {/* <p>{movie._id}</p>
                     <p>{movie.movieId}</p> */}
                   </Card.Body>
-                  <Card.Footer className="text-muted"><Button className='btn-block' onClick={() => handleDeleteMovie(movie._id)}>
+                  <Card.Footer ><Button variant="outline-secondary" onClick={() => handleDeleteMovie(movie._id)}>
                       Delete this Movie!
                     </Button></Card.Footer>
                 </Card>

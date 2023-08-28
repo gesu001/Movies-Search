@@ -25,7 +25,7 @@ const CommentList = ({
         comments.map((comment) => (
           <div key={comment._id} className="card mb-3">
             <p className="card-header p-2 m-0">
-                  {comment.commentAuthor} reviewed on {comment.createdAt}
+                  <span className='fw-bolder'>{comment.commentAuthor}</span> reviewed on {comment.createdAt}
             
             </p>
             <div className="card-body bg-light p-2">

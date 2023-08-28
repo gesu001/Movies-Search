@@ -14,7 +14,7 @@ const Comments= ({movieId}) => {
   return (
     <main>
       <div className="flex-row justify-center">
-        <div className="col-12 col-md-8 mb-3">
+        <div className="col-12 mb-3">
           {loading ? (
             <div>Loading...</div>
           ) : (

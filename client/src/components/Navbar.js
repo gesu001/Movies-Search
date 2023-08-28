@@ -9,30 +9,28 @@ import Auth from '../utils/auth';
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
-
   return (
     <>
-      <Navbar bg='light' variant='white' expand='lg'>
+      <Navbar bg="dark" data-bs-theme="dark" expand='lg'>
         <Container fluid>
           <Navbar.Brand as={Link} to='/'>
-            Movie Search
+            <h1 className='p-3'>Movie Search</h1>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar' className='d-flex flex-row-reverse'>
             <Nav className='ml-auto d-flex'>
-              <Nav.Link as={Link} to='/'>
-                Search For Movies
+              <Nav.Link as={Link} to='/' className='p-3, fs-4'>
+                Popular Movies
               </Nav.Link>
-              {/* if user is logged in show saved books and logout */}
-              {Auth.loggedIn() ? (
+              {Auth.loggedIn() && Auth.getProfile().data.username ? (
                 <>
-                  <Nav.Link as={Link} to='/savedmovies'>
-                    See Your Movies
+                  <Nav.Link as={Link} to='/savedmovies' className='p-3, fs-4'>
+                  See Your Movie Lists
                   </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  <Nav.Link onClick={Auth.logout} className='p-3, fs-4'>Logout</Nav.Link>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                <Nav.Link onClick={() => setShowModal(true)} className='p-3, fs-4'>Login/Sign Up</Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>

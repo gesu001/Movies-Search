@@ -97,7 +97,7 @@ const SignupForm = () => {
         <Button
           disabled={!(userFormData.username && userFormData.email && userFormData.password)}
           type='submit'
-          variant='success'>
+          variant='dark'>
           Submit
         </Button>
       </Form>

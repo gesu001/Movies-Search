@@ -83,7 +83,7 @@ const CommentForm = ({ movieId }) => {
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
+            <div className="col-12">
               <textarea
                 name="commentText"
                 placeholder="Add your review..."
@@ -94,8 +94,8 @@ const CommentForm = ({ movieId }) => {
               ></textarea>
             </div>
 
-            <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
+            <div className="col-12 col-lg-6">
+              <button className="btn btn-secondary btn-block" type="submit">
                 Add Review
               </button>
             </div>

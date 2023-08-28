@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import {
   Container,
   Col,
@@ -11,7 +11,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 // import Auth from '../utils/auth';
-import { search} from '../utils/API';
+import { search, popularMovie } from '../utils/API';
 
 const SearchMovies = () => {
   // create state for holding returned google api data
@@ -19,34 +19,36 @@ const SearchMovies = () => {
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
 
-  // const getPopularMovie = async () => {
-  //   try {
-  //     const response = await popularMovie();
+  const getPopularMovie = async () => {
+    try {
+      const response = await popularMovie();
 
-  //     if (!response.ok) {
-  //       throw new Error('something went wrong!');
-  //     }
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
 
-  //     // const { items } = await response.json();
-  //     const { results } = await response.json();
+      const { results } = await response.json();
 
-  //     const popularMovie = results.map((result) => ({
-  //       movieId: result.id,
-  //       title: result.title,
-  //       overview: result.overview,
-  //       image: `https://image.tmdb.org/t/p/original/${result.poster_path}`,
-  //       releaseDate: result.release_date,
-  //       voteAverage: result.vote_average
-  //     }))
+      const movieData = results.map((movie) => ({
+        movieId: movie.id,
+        title: movie.title,
+        overview: movie.overview,
+        image: `https://image.tmdb.org/t/p/original/${movie.poster_path}`,
+        releaseDate: movie.release_date,
+        voteAverage: movie.vote_average
+      }))
 
-  //     setSearchedMovies(popularMovie);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
+      setSearchedMovies(movieData);
+    } catch (err) {
+      console.error(err);
+    }
 
-  // useEffect(()=> {
-  //   getPopularMovie()
-  // }, [])
+  };
+
+  useEffect(()=> {
+    getPopularMovie()
+  }, [])
+  
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -80,12 +82,12 @@ const SearchMovies = () => {
       console.error(err);
     }
   };
-
+ 
   return (
     <>
       <div className='text-dark bg-dark pt-5'>
         <Container>
-          <h1>Search for Movies!</h1>
+          {/* <h1>Search for Movies!</h1> */}
           <Form onSubmit={handleFormSubmit}>
             <Row>
               <Col xs={12} md={8}>
@@ -119,7 +121,7 @@ const SearchMovies = () => {
             return (
               <CardGroup>  
                 <Card className="bg-dark text-white" key={movie.movieId} border='dark'>
-                <Nav.Link as={Link} to={`/movie/${movie.movieId}`}>
+                <Nav.Link className="boder-success-hover" as={Link} to={`/movie/${movie.movieId}`}>
                   {movie.image ? (
                     <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
                   ) : null}

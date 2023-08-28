@@ -121,39 +121,40 @@ const SingleMovie = () => {
 
         <Col md='8'>
         <Card.Body>
-          <Card.Title>{movieData.title}</Card.Title>
-          <p className='small'>Release Date: {movieData.releaseDate}</p>
-          <p className='small'>Rating: {movieData.voteAverage}/10</p>
-          <Card.Text>{movieData.overview}</Card.Text>
+          <Card.Title className='fs-1'>{movieData.title}</Card.Title>
+          <p >Release Date: {movieData.releaseDate}</p>
+          <p >Rating: {movieData.voteAverage}/10</p>
+          <Card.Text className='fs-4'>{movieData.overview}</Card.Text>
           <a href={movieData.homepage} target="_blank" rel="noopener noreferrer">Visit Movie Homepage</a> 
         </Card.Body>
-        </Col>
-        <Col>
-        <Card.Footer className="text-muted, text-center">{Auth.loggedIn() && (
+        <Card.Footer className="text-muted">{Auth.loggedIn() && (
             <Button
               disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movieId)}
-              className='btn-block btn-info'
+              className='btn-block btn-secondary'
               onClick={() => handleSaveMovie(movieId)}>
               {savedMovieIds?.some((savedMovieId) => savedMovieId === movieId)
-                ? 'This movie has already been saved!'
-                : 'Save this Movie!'}
+                ? 'Movie Saved!'
+                : 'Save To Movie List!'}
             </Button>
-          )}</Card.Footer>
-          </Col>
-
+          )}
+        </Card.Footer>
+        </Col>
         </Row>
       </Card>
       </div>
+
       <div>
-      <Card className="m-3 p-4" border='dark'>
-      <div>
-        <Comments movieId={ movieId }/>
+        <Card className="m-3 p-4 bg-dark text-white" border='dark'>
+          <div className="m-3 p-4">
+            <Comments movieId={ movieId }/>
+          </div>
+
+          <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+            <CommentForm movieId={ movieId } />
+          </div>
+        </Card>
       </div>
-      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-        <CommentForm movieId={ movieId } />
-      </div>
-      </Card>
-      </div>
+
     </Container>
     </>
   );
