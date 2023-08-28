@@ -55,12 +55,12 @@ const SavedMovies = () => {
         </Container>
       </div>
       <Container>
-        <h2 className='pt-5'>
+        <h5 className='pt-5 fs-2'>
           {(userData.movies || []).length
             ? `${userData.movies.length} saved ${userData.movies.length === 1 ? 'movie' : 'movies'}:`
             : 'You have no saved movies!'}
-        </h2>
-        <Row xs={1} md={3} className="g-4">
+        </h5>
+        <Row xs={1} md={4} className="g-4">
           {userData?.movies?.map((movie) => {
             return (
               <CardGroup>

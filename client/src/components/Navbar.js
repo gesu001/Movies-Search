@@ -19,18 +19,18 @@ const AppNavbar = () => {
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar' className='d-flex flex-row-reverse'>
             <Nav className='ml-auto d-flex'>
-              <Nav.Link as={Link} to='/' className='p-3, fs-4'>
+              <Nav.Link as={Link} to='/' className='p-4, fs-4'>
                 Popular Movies
               </Nav.Link>
               {Auth.loggedIn() && Auth.getProfile().data.username ? (
                 <>
-                  <Nav.Link as={Link} to='/savedmovies' className='p-3, fs-4'>
-                  See Your Movie Lists
+                  <Nav.Link as={Link} to='/savedmovies' className='p-4, fs-4'>
+                  {Auth.getProfile().data.username} Movie Lists
                   </Nav.Link>
-                  <Nav.Link onClick={Auth.logout} className='p-3, fs-4'>Logout</Nav.Link>
+                  <Nav.Link onClick={Auth.logout} className='p-4, fs-4'>Logout</Nav.Link>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)} className='p-3, fs-4'>Login/Sign Up</Nav.Link>
+                <Nav.Link onClick={() => setShowModal(true)} className='p-4, fs-4'>Login/Sign Up</Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>
