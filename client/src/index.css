@@ -21,3 +21,12 @@ h6 {
 .modal-content {
   background-color: grey;
 }
+
+.nav-pills {
+  --bs-nav-pills-link-active-bg: #44474b;
+}
+
+.nav {
+  --bs-nav-link-color: white;
+  --bs-nav-link-hover-color:black;
+}
