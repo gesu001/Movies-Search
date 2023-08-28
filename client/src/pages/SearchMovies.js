@@ -127,9 +127,9 @@ const SearchMovies = () => {
                   ) : null}
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
-                    <p className='small'>Release Date: {movie.releaseDate}</p>
-                    <p>Rating: {movie.voteAverage}/10</p>
-                    <Card.Text>{movie.overview}{' '}</Card.Text>
+                    <p >Release Date: {movie.releaseDate}</p>
+                    <p>Rating: {movie.voteAverage}/10 in IMDB</p>
+                    {/* <Card.Text>{movie.overview}{' '}</Card.Text> */}
                   </Card.Body>
                   </Nav.Link>
                 </Card>

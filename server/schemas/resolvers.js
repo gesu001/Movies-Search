@@ -133,11 +133,13 @@ const resolvers = {
       removeComment: async (parent, {commentId }, context) => {
       if (context.user) {
         const comment = await Comment.findOneAndDelete(
-          { _id: commentId });
+          { _id: commentId,
+            commentAuthor: context.user.username,
+           });
 
-        // await Movie.findOneAndUpdate(
-        //   { _id: movie_id },
-        //   { $pull: { comments: {_id: commentId}}},
+        // await User.findOneAndUpdate(
+        //   { _id: context.user._id },
+        //   { $pull: { comments: comment._id}}},
         //   {new: true}
         // );
 

@@ -67,7 +67,7 @@ const CommentForm = ({ movieId }) => {
 
   return (
     <div>
-      <h4>What are your reviews on this movie?</h4>
+      <p className='fs-4'>Share your reviews on this movie?</p>
 
       {Auth.loggedIn() ? (
         <>

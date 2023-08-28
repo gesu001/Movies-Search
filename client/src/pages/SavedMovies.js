@@ -49,9 +49,9 @@ const SavedMovies = () => {
   
   return (
     <>
-      <div fluid className='text-light bg-dark p-5'>
+      <div fluid className='text-light bg-dark p-4'>
         <Container>
-          <h1>Your Movie Lists</h1>
+          <h2>Your Movie Lists</h2>
         </Container>
       </div>
       <Container>
@@ -75,7 +75,7 @@ const SavedMovies = () => {
                     <p>{movie.movieId}</p> */}
                   </Card.Body>
                   <Card.Footer ><Button variant="outline-secondary" onClick={() => handleDeleteMovie(movie._id)}>
-                      Delete this Movie!
+                      Remove this Movie!
                     </Button></Card.Footer>
                 </Card>
               </CardGroup>
