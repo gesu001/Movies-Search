@@ -123,7 +123,8 @@ const SingleMovie = () => {
         <Card.Body>
           <Card.Title className='fs-1'>{movieData.title}</Card.Title>
           <p >Release Date: {movieData.releaseDate}</p>
-          <p >Rating: {movieData.voteAverage}/10</p>
+          <p >Rating: {movieData.voteAverage}/10 in IMDb</p>
+          <p >Runtime: {movieData.runtime} munites</p>
           <Card.Text className='fs-4'>{movieData.overview}</Card.Text>
           <a href={movieData.homepage} target="_blank" rel="noopener noreferrer">Visit Movie Homepage</a> 
         </Card.Body>
